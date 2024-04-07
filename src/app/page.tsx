@@ -8,8 +8,8 @@ import type { NetworkGraphProps } from "./components/NetworkGraph/NetworkGraph.t
 export default function Home() {
   const [graph, setGraph] = useState<NetworkGraphProps["data"]>();
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      POC to show network graph
+    <main className="flex min-h-screen flex-col items-center p-24">
+      <h1>POC to show network graph</h1>
       <br />
       <br />
       <FileUploader setGraph={setGraph} />

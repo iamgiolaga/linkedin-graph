@@ -1,19 +1,27 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import Dropzone from "react-dropzone";
 import Papa from "papaparse";
 import { generateGraph } from "@/app/utils/generateGraph";
 import type { FileUploaderProps } from "./FileUploader.types";
 import { computeFrequencies } from "@/app/utils/computeFrequencies";
 import { validateContent } from "@/app/utils/validateContent";
+import * as S from "./FileUploader.styles";
 
 export const FileUploader: React.FC<FileUploaderProps> = ({ setGraph }) => {
-  const handleDrop = useCallback((acceptedFiles: Blob[]) => {
-    acceptedFiles.forEach((file: Blob) => {
+  const [filename, setFilename] = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isDropped, setIsDropped] = useState(false);
+  const handleDrop = useCallback((acceptedFiles: File[]) => {
+    acceptedFiles.forEach((file: File) => {
       const reader = new FileReader();
 
       reader.onabort = () => console.log("file reading was aborted");
       reader.onerror = () => console.log("file reading has failed");
       reader.onload = () => {
+        setIsUploading(false);
+        setIsDropped(true);
+        setFilename(file.name);
         const csvStr = new TextDecoder("utf-8").decode(
           reader.result as ArrayBuffer
         );
@@ -35,15 +43,57 @@ export const FileUploader: React.FC<FileUploaderProps> = ({ setGraph }) => {
     });
   }, []);
 
+  const handleDragEnter = useCallback(() => {
+    setIsDragging(true);
+  }, []);
+
+  const handleDragLeave = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  const handleDropAccepted = useCallback(() => {
+    setIsDragging(false);
+    setIsUploading(true);
+  }, []);
+
+  const formatDropAreaContent = () => {
+    if (isDragging) {
+      return <S.DropAreaText>Drop the file here</S.DropAreaText>;
+    }
+
+    if (isUploading) {
+      return (
+        <S.LoaderWrapper>
+          <S.Loader size={30} />
+        </S.LoaderWrapper>
+      );
+    }
+
+    if (isDropped) {
+      return <S.DropAreaText>{filename}</S.DropAreaText>;
+    }
+
+    return (
+      <S.DropAreaText>
+        Drag and drop the file here or click to select a file
+      </S.DropAreaText>
+    );
+  };
+
   return (
-    <Dropzone onDrop={handleDrop}>
+    <Dropzone
+      onDrop={handleDrop}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDropAccepted={handleDropAccepted}
+    >
       {({ getRootProps, getInputProps }) => (
-        <section>
-          <div {...getRootProps()}>
+        <S.DropArea isDragging={isDragging}>
+          <S.DropAreaContentWrapper {...getRootProps()}>
             <input {...getInputProps()} />
-            <p>Drag 'n' drop some files here, or click to select files</p>
-          </div>
-        </section>
+            {formatDropAreaContent()}
+          </S.DropAreaContentWrapper>
+        </S.DropArea>
       )}
     </Dropzone>
   );
