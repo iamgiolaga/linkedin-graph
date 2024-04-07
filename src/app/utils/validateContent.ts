@@ -1,3 +1,5 @@
+import { EXPECTED_COLUMNS } from "../common/constants";
+
 export const validateContent = (content: unknown[]): boolean => {
   if (!Array.isArray(content)) {
     return false;
@@ -15,17 +17,7 @@ export const validateContent = (content: unknown[]): boolean => {
     return false;
   }
 
-  const expectedColumns = [
-    "First Name",
-    "Last Name",
-    "URL",
-    "Email Address",
-    "Company",
-    "Position",
-    "Connected On",
-  ];
-
-  if (columns.some((item) => !expectedColumns.includes(item))) {
+  if (columns.some((item) => !EXPECTED_COLUMNS.includes(item))) {
     return false;
   }
 

@@ -1,3 +1,4 @@
+import { COMPANY_COLOR, YOU, YOUR_COLOR } from "../common/constants";
 import { NetworkLink, NetworkNode } from "../common/types";
 
 export const generateGraph = (frequencies: Record<string, number>) => {
@@ -10,8 +11,8 @@ export const generateGraph = (frequencies: Record<string, number>) => {
     id: "Node 0",
     height: 2,
     size: 32,
-    color: "rgb(244, 117, 96)",
-    label: "You",
+    color: YOUR_COLOR,
+    label: YOU,
   });
 
   const companies = Object.entries(frequencies)
@@ -29,7 +30,7 @@ export const generateGraph = (frequencies: Record<string, number>) => {
       id: `Node ${index + 1}`,
       height: 1,
       size: 24,
-      color: "rgb(97, 205, 187)",
+      color: COMPANY_COLOR,
       label: `${company} (${companyFrequency})`,
     });
     links.push({
