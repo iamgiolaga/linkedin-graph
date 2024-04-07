@@ -15,11 +15,14 @@
     "@nivo/network": "^0.85.1",
     "csv-parser": "^3.0.0",
     "next": "14.1.4",
+    "papaparse": "^5.4.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-dropzone": "^14.2.3"
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/papaparse": "^5.3.14",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",

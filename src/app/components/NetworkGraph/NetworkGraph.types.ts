@@ -1,6 +1,4 @@
-import { InputLink, InputNode, NetworkDataProps } from "@nivo/network";
+import type { NetworkNode, NetworkLink } from "@/app/common/types";
+import { NetworkDataProps } from "@nivo/network";
 
-export type NetworkGraphProps = NetworkDataProps<
-  InputNode & { color: string; height: number; label: string; size: number },
-  InputLink & { distance: number }
->;
+export type NetworkGraphProps = NetworkDataProps<NetworkNode, NetworkLink>;
