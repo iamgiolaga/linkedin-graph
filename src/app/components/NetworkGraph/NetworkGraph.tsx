@@ -1,6 +1,7 @@
 import { ResponsiveNetwork } from "@nivo/network";
 import React from "react";
 import type { NetworkGraphProps } from "./NetworkGraph.types";
+import { LINK_COLOR, NODE_BORDER_COLOR } from "@/app/common/constants";
 
 export const NetworkGraph: React.FC<NetworkGraphProps> = ({ data }) => (
   <ResponsiveNetwork
@@ -12,11 +13,9 @@ export const NetworkGraph: React.FC<NetworkGraphProps> = ({ data }) => (
     nodeSize={(n) => n.size}
     activeNodeSize={(n) => 1.5 * n.size}
     nodeColor={(e) => e.color}
-    nodeBorderWidth={1}
-    nodeBorderColor={{
-      from: "color",
-      modifiers: [["darker", 0.8]],
-    }}
+    linkColor={LINK_COLOR}
+    nodeBorderWidth={2}
+    nodeBorderColor={NODE_BORDER_COLOR}
     nodeTooltip={(e) => e.node.data.label}
     linkThickness={(n) => 2 + 2 * n.target.data.height}
     linkBlendMode="multiply"
