@@ -29,7 +29,7 @@ export const FileUploader: React.FC<FileUploaderProps> = ({ setGraph }) => {
         const frequencies = computeFrequencies(connections as string[][]);
 
         const graph = generateGraph(frequencies);
-        setGraph({ data: graph });
+        setGraph(graph);
       };
       reader.readAsArrayBuffer(file);
     });
