@@ -12,3 +12,5 @@ export const EXPECTED_COLUMNS = [
   "Position",
   "Connected On",
 ];
+export const GITHUB_REPOSITORY_URL =
+  "https://github.com/iamgiolaga/linkedin-graph";
