@@ -12,6 +12,7 @@ export const StyledHeaderWrapper = styled(Box)`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-top: 2vh;
 `;
 
 const StyledGithubIconHover = `
